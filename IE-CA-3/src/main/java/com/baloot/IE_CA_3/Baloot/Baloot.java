@@ -225,7 +225,7 @@ public class Baloot {
     }
 
     public Map<String, Category> getBalootCategorySections() {
-        return balootCategorySections;
+        return commoditiesManager.getBalootCategories();
     }
 
 }
