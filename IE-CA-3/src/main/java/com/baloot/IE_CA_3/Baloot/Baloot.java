@@ -32,14 +32,42 @@ public class Baloot {
 
     private int latestCommentID = 0; //comments id start with 1
 
+    private static Baloot instance;
+
+    private Baloot() {}
+
+
+    public static Baloot getInstance() {
+        if(instance == null)
+            instance = new Baloot();
+        return instance;
+    }
+
+
+    public boolean userIsLoggedIn() {
+        return usersManager.loggedInUserExists();
+    }
+
+
+    public String getLoggedInUsername() {
+        return usersManager.getLoggedInUser();
+    }
+
+
+    public void handleLogin(String username, String password) throws Exception {
+        usersManager.handleLogin(username, password);
+    }
+
 
     public boolean commentExists(int commentId) {
         return balootComments.containsKey(commentId);
     }
 
+
     public void addUser(User user) throws Exception {
         usersManager.addUser(user);
     }
+
 
     public void addCommodity(Commodity commodity) throws Exception {
         if(!providersManager.providerExists(commodity.getProviderId()))
@@ -50,9 +78,11 @@ public class Baloot {
         providersManager.getBalootProviders().get(commodity.getProviderId()).updateCommoditiesData(commodity.getRating());
     }
 
+
     public void addProvider(Provider provider) throws Exception {
         providersManager.addProvider(provider);
     }
+
 
     public void addComment(Comment comment) throws Exception { //fix this !!!1
         if(!usersManager.userEmailExists(comment.getUsername())) {
@@ -69,6 +99,7 @@ public class Baloot {
         latestCommentID++;
         commoditiesManager.getBalootCommodities().get(comment.getCommodityId()).addComment(comment.getCommentId());
     }
+
 
     public void addRating(String username, int commodityId, int rate) throws Exception {
         if(!usersManager.userExists(username))
@@ -91,6 +122,7 @@ public class Baloot {
         balootRatings.put(ratingPrimaryKey, rating);
     }
 
+
     public void addRemoveBuyList(String username, int commodityId, boolean isAdding) throws Exception {
         User user = usersManager.getBalootUser(username);
         Commodity commodity = commoditiesManager.getBalootCommodity(commodityId);
@@ -111,6 +143,7 @@ public class Baloot {
         }
     }
 
+
     public void purchaseUserBuyList(String username) throws Exception {
         if(!usersManager.userExists(username))
             throw new UserNotExistsException();
@@ -127,12 +160,14 @@ public class Baloot {
             commoditiesManager.getBalootCommodities().get(buyListItemId).reduceInStock(1);
     }
 
+
     public void addCreditToUser(String username, double credit) throws Exception {
         User user = usersManager.getBalootUser(username);
         if(credit <= 0)
             throw new NegativeCreditAddingException();
         user.addCredit(credit);
     }
+
 
     public void voteComment(String username, int commentId, int vote) throws Exception {
         if(!usersManager.userExists(username))
@@ -167,6 +202,7 @@ public class Baloot {
             throw new WrongVoteValueException();
     }
 
+
     public Map<Integer, Comment> getCommodityComments(int commodityId) throws Exception {
         if(!commoditiesManager.commodityExists(commodityId))
             throw new CommodityNotExistsException();
@@ -178,25 +214,31 @@ public class Baloot {
         return result;
     }
 
+
     public Map<Integer, Commodity> getCommoditiesByCategory(String category) {
         return commoditiesManager.getCommoditiesByCategory(category);
     }
+
 
     public Map<Integer, Commodity> getCommoditiesByPriceRange(int startPrice, int endPrice) {
         return commoditiesManager.getCommoditiesByPriceRange(startPrice, endPrice);
     }
 
+
     public User getBalootUser(String username) throws Exception {
         return usersManager.getBalootUser(username);
     }
+
 
     public Provider getBalootProvider(int providerID) throws Exception {
         return providersManager.getBalootProvider(providerID);
     }
 
+
     public Commodity getBalootCommodity(int commodityID) throws Exception {
         return commoditiesManager.getBalootCommodity(commodityID);
     }
+
 
     public Comment getBalootComment(int commentId) throws Exception {
         if(!commentExists(commentId))
@@ -204,25 +246,31 @@ public class Baloot {
         return balootComments.get(commentId);
     }
 
+
     public Map<String, User> getBalootUsers() {
         return usersManager.getBalootUsers();
     }
+
 
     public Map<Integer, Commodity> getBalootCommodities() {
         return commoditiesManager.getBalootCommodities();
     }
 
+
     public Map<Integer, Provider> getBalootProviders() {
         return providersManager.getBalootProviders();
     }
+
 
     public Map<Integer, Comment> getBalootComments() {
         return balootComments;
     }
 
+
     public Map<String, Rating> getBalootRatings() {
         return balootRatings;
     }
+
 
     public Map<String, Category> getBalootCategorySections() {
         return commoditiesManager.getBalootCategories();

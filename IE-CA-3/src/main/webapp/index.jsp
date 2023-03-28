@@ -1,13 +1,28 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.baloot.IE_CA_3.Baloot.Baloot" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>JSP - Hello World</title>
+    <meta charset="UTF-8">
+    <title>Courses</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<%
+    String loggedInUser = Baloot.getInstance().getLoggedInUsername();
+%>
+<ul>
+    <li id="std_id">Student Id: <%=loggedInUser%></li>
+    <li>
+        <a href="commodities">Commodities</a>
+    </li>
+    <li>
+        <a href="buyList">Buy List</a>
+    </li>
+    <li>
+        <a href="credit">Add Credit</a>
+    </li>
+    <li>
+        <a href="logout">Log Out</a>
+    </li>
+</ul>
 </body>
 </html>
