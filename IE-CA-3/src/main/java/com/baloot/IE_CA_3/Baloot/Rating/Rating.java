@@ -1,0 +1,42 @@
+package com.baloot.IE_CA_3.Baloot.Rating;
+
+public class Rating {
+
+    private String username;
+
+    private int commodityId;
+
+    private int score;
+
+
+    public Rating(String username, int commodityId, int score) {
+        this.username = username;
+        this.commodityId = commodityId;
+        this.score = score;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setCommodityId(int commodityId) {
+        this.commodityId = commodityId;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getCommodityId() {
+        return commodityId;
+    }
+
+}
