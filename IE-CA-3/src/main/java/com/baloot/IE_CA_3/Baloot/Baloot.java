@@ -13,6 +13,7 @@ import com.baloot.IE_CA_3.Baloot.User.UsersManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -51,6 +52,11 @@ public class Baloot {
 
     public boolean searchFilterIsApplied() {
         return commoditiesManager.getFilteringStatus();
+    }
+
+
+    public boolean sortingIsAppliedForCommodities() {
+        return commoditiesManager.getSortingStatus();
     }
 
 
@@ -235,20 +241,25 @@ public class Baloot {
     }
 
 
-    public Map<Integer, Commodity> getCommoditiesFilteredByName(String commodityName) {
+    public void getCommoditiesFilteredByName(String commodityName) {
         commoditiesManager.filterCommoditiesByName(commodityName);
-        return commoditiesManager.getFilteredCommodities();
+        //return commoditiesManager.getFilteredCommodities();
     }
 
 
-    public Map<Integer, Commodity> getCommoditiesFilteredByCategory(String category) {
+    public void getCommoditiesFilteredByCategory(String category) {
         commoditiesManager.filterCommoditiesByCategory(category);
-        return commoditiesManager.getFilteredCommodities();//might remove and make it void !
+        //return commoditiesManager.getFilteredCommodities();//might remove and make it void !
     }
 
 
-    public Map<Integer, Commodity> getFilteredCommodities() {
+    public List<Commodity> getFilteredCommodities() {
         return commoditiesManager.getFilteredCommodities();
+    }
+
+
+    public void getCommoditiesSortedByRating() {
+        commoditiesManager.sortCommoditiesByRating();
     }
 
 

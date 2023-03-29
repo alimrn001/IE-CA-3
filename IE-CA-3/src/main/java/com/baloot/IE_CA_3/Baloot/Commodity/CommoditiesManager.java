@@ -18,6 +18,8 @@ public class CommoditiesManager {
 
     private boolean filterAlreadyApplied = false;
 
+    private boolean sortIsApplied = false;
+
     private Map<Integer, Commodity> getNHighestRatedCommodities(int n) {
         return balootCommodities.entrySet().stream()
                 .sorted((c1, c2) -> Double.compare(c2.getValue().getRating() , c1.getValue().getRating()))
@@ -101,6 +103,7 @@ public class CommoditiesManager {
 
 
     public void clearFilters() {
+        sortIsApplied = false;
         filterAlreadyApplied = false;
         filteredCommoditiesID.clear();
         for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet())
@@ -113,7 +116,7 @@ public class CommoditiesManager {
             clearFilters();
             filterAlreadyApplied = true;
         }
-
+        sortIsApplied = false;
         for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
             if( (!(commodityEntry.getValue().getName().contains(searchedName))) && (filteredCommoditiesID.contains(commodityEntry.getKey())) )
                 filteredCommoditiesID.remove(commodityEntry.getKey());
@@ -126,6 +129,7 @@ public class CommoditiesManager {
             clearFilters();
             filterAlreadyApplied = true;
         }
+        sortIsApplied = false;
         System.out.println("size here is : " + filteredCommoditiesID.size());
         for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
             if( (!(commodityEntry.getValue().getCategories().contains(category))) && (filteredCommoditiesID.contains(commodityEntry.getKey())) )
@@ -141,21 +145,41 @@ public class CommoditiesManager {
     }
 
 
-    public Map<Integer, Commodity> sortCommoditiesByRating() {
-        Map<Integer, Commodity> commodities = this.balootCommodities;
-        Collections.sort(commodities.values().stream().toList(), (commodity1, commodity2) -> Double.compare(commodity1.getRating(), commodity2.getRating()));
-        return commodities;
+    public void sortCommoditiesByRating() {
+        List<Commodity> commoditiesList = new ArrayList<>(balootCommodities.values());
+        commoditiesList = commoditiesList.stream().sorted(Comparator.comparing(Commodity::getRating)).collect(Collectors.toList());
+        System.out.println(commoditiesList.size() + "is size");
+        clearFilters();
+        filteredCommoditiesID.clear();
+        for(Commodity commodity : commoditiesList)
+            filteredCommoditiesID.add(commodity.getId());
+        sortIsApplied = true;
+//        Map<Integer, Commodity> commodities = this.balootCommodities;
+//        commodities.entrySet().stream()
+//                .sorted((k1, k2) -> -k1.getValue().getRating());
+//        commodities.values().stream().toList().sort(Comparator.comparingDouble(Commodity::getRating));
+//        clearFilters();
+//        filteredCommoditiesID.clear();
+//        filteredCommoditiesID.addAll(commodities.keySet());
+        //return commodities;
     }
 
 
-    public Map<Integer, Commodity> getFilteredCommodities() {
+    public List<Commodity> getFilteredCommodities() {
         Map<Integer, Commodity> commodities = new HashMap<>();
-        for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
-            if(this.filteredCommoditiesID.contains(commodityEntry.getKey())) {
-                commodities.put(commodityEntry.getKey(), commodityEntry.getValue());
-            }
-        }
-        return commodities;
+        List<Commodity> commoditiesList = new ArrayList<>();
+
+        for(int id : filteredCommoditiesID)
+            commoditiesList.add(balootCommodities.get(id));
+            //commodities.put(balootCommodities.get(id).getId(), balootCommodities.get(id));
+        //System.out.println(commodities.size()  + " size");
+        return commoditiesList;
+//        for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
+//            if(this.filteredCommoditiesID.contains(commodityEntry.getKey())) {
+//                commodities.put(commodityEntry.getKey(), commodityEntry.getValue());
+//            }
+//        }
+//        return commodities;
     }
 
 
@@ -183,6 +207,11 @@ public class CommoditiesManager {
 
     public boolean getFilteringStatus() {
         return filterAlreadyApplied;
+    }
+
+
+    public boolean getSortingStatus() {
+        return sortIsApplied;
     }
 
 }

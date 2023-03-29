@@ -17,8 +17,9 @@
 <%
     Baloot baloot = Baloot.getInstance();
     List<Commodity> commoditiesList;
-    if(baloot.searchFilterIsApplied())
-        commoditiesList = new ArrayList<>(baloot.getFilteredCommodities().values());
+    if(baloot.searchFilterIsApplied() || baloot.sortingIsAppliedForCommodities()) {
+        commoditiesList = baloot.getFilteredCommodities();
+    }
     else {
         commoditiesList = new ArrayList<>(baloot.getBalootCommodities().values());
     }

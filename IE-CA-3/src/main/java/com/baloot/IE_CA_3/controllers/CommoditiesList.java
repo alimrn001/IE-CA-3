@@ -39,6 +39,9 @@ public class CommoditiesList extends HttpServlet {
             else if(action.equals("clear")) {
                 executeClearFilterTask(request, response);
             }
+            else if(action.equals("sort_by_rate")) {
+                executeSortCommoditiesByRate(request, response);
+            }
         }
         else {
             response.sendRedirect("http://localhost:8181/IE_CA_3_war_exploded/login");
@@ -50,12 +53,12 @@ public class CommoditiesList extends HttpServlet {
         try {
             if (nameOrCategory == 0) {
                 if(!searchString.equals(""))
-                    System.out.println("is size : " + baloot.getCommoditiesFilteredByName(searchString).size());
+                    baloot.getCommoditiesFilteredByName(searchString);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");
                 requestDispatcher.forward(request, response);
             } else if (nameOrCategory == 1) {
                 if(!searchString.equals(""))
-                    System.out.println("is size : " + baloot.getCommoditiesFilteredByCategory(searchString).size());
+                    baloot.getCommoditiesFilteredByCategory(searchString);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");
                 requestDispatcher.forward(request, response);
             }
@@ -69,6 +72,18 @@ public class CommoditiesList extends HttpServlet {
         Baloot baloot = Baloot.getInstance();
         try {
             baloot.clearSearchFilters();
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void executeSortCommoditiesByRate(HttpServletRequest request, HttpServletResponse response) {
+        Baloot baloot = Baloot.getInstance();
+        try {
+            baloot.getCommoditiesSortedByRating();
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");
             requestDispatcher.forward(request, response);
         }
