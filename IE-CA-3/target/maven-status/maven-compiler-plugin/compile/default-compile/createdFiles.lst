@@ -1,6 +1,7 @@
 com/baloot/IE_CA_3/Baloot/User/User.class
 com/baloot/IE_CA_3/Baloot/Provider/ProvidersManager.class
 com/baloot/IE_CA_3/Baloot/Baloot.class
+com/baloot/IE_CA_3/controllers/Login$3.class
 com/baloot/IE_CA_3/Baloot/Comment/Comment.class
 com/baloot/IE_CA_3/Baloot/Utilities/LocalDateAdapter.class
 com/baloot/IE_CA_3/Baloot/Rating/Rating.class
@@ -10,6 +11,7 @@ com/baloot/IE_CA_3/Baloot/Exceptions/NotEnoughCreditException.class
 com/baloot/IE_CA_3/controllers/Login$1.class
 com/baloot/IE_CA_3/Baloot/Exceptions/CommentNotExistsException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/CommodityNotExistsException.class
+com/baloot/IE_CA_3/controllers/CommoditiesList.class
 com/baloot/IE_CA_3/Baloot/User/UsersManager.class
 com/baloot/IE_CA_3/HTTPReqHandler/HTTPReqHandler.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotAvailableInStockException.class
@@ -22,6 +24,7 @@ com/baloot/IE_CA_3/Baloot/Exceptions/WrongVoteValueException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/CommodityWithSameIDException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/LoginFailedException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotInBuyListForRemovingException.class
+com/baloot/IE_CA_3/controllers/Login$2.class
 com/baloot/IE_CA_3/Baloot/Provider/Provider.class
 com/baloot/IE_CA_3/Baloot/Exceptions/RatingOutOfRangeException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ItemAlreadyExistsInBuyListException.class

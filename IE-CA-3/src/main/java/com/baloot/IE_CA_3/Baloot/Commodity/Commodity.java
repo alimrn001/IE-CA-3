@@ -140,4 +140,9 @@ public class Commodity {
         return false;
     }
 
+    public String getCategoriesAsString() {
+        String categoriesStr = this.categories.toString();
+        return categoriesStr.substring(1, categoriesStr.length() - 1);
+    }
+
 }

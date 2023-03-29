@@ -1,6 +1,8 @@
 package com.baloot.IE_CA_3.controllers;
 
+import com.baloot.IE_CA_3.Baloot.Commodity.Commodity;
 import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;
+import com.baloot.IE_CA_3.Baloot.Provider.Provider;
 import com.baloot.IE_CA_3.Baloot.User.User;
 import com.baloot.IE_CA_3.Baloot.Utilities.LocalDateAdapter;
 import com.baloot.IE_CA_3.HTTPReqHandler.HTTPReqHandler;
@@ -28,6 +30,8 @@ public class Login extends HttpServlet {
     public void init() throws ServletException {
         try {
             retrieveUsersDataFromAPI(UsersAPI);
+            retrieveProvidersDataFromAPI(ProvidersAPI);
+            retrieveCommoditiesDataFromAPI(CommoditiesAPI);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -57,6 +61,7 @@ public class Login extends HttpServlet {
         }
     }
 
+
     private void retrieveUsersDataFromAPI(String url) throws Exception {
         String userDataJsonStr = new HTTPReqHandler().httpGetRequest(url);
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
@@ -68,5 +73,28 @@ public class Login extends HttpServlet {
         }
     }
 
+
+    private void retrieveProvidersDataFromAPI(String url) throws Exception {
+        String providerDataJsonStr = new HTTPReqHandler().httpGetRequest(url);
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        Type providerListType = new TypeToken<ArrayList<Provider>>(){}.getType();
+        List<Provider> providerList = gson.fromJson(providerDataJsonStr, providerListType);
+        for(Provider provider : providerList) {
+            provider.initializeGsonNullValues();
+            Baloot.getInstance().addProvider(provider);
+        }
+    }
+
+
+    private void retrieveCommoditiesDataFromAPI(String url) throws Exception {
+        String commodityDataJsonStr = new HTTPReqHandler().httpGetRequest(url);
+        Gson gson = new GsonBuilder().create();
+        Type commodityListType = new TypeToken<ArrayList<Commodity>>(){}.getType();
+        List<Commodity> commodityList = gson.fromJson(commodityDataJsonStr, commodityListType);
+        for(Commodity commodity : commodityList) {
+            commodity.initializeGsonNullValues();
+            Baloot.getInstance().addCommodity(commodity);
+        }
+    }
 
 }

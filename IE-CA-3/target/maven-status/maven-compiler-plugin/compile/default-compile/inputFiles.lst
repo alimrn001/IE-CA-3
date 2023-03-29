@@ -24,5 +24,6 @@
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/controllers/Home.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/ProviderNotExistsException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/NegativeCreditAddingException.java
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/controllers/CommoditiesList.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/ItemAlreadyExistsInBuyListException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/RatingOutOfRangeException.java

@@ -32,4 +32,8 @@ public class ProvidersManager {
         return this.balootProviders;
     }
 
+    public String getProviderNameById(int providerId) {
+        return balootProviders.get(providerId).getName();
+    }
+
 }

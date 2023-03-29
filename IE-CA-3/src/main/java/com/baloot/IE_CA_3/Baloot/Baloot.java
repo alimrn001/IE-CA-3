@@ -54,6 +54,11 @@ public class Baloot {
     }
 
 
+    public String getProviderNameById(int providerId) {
+        return providersManager.getProviderNameById(providerId);
+    }
+
+
     public void handleLogin(String username, String password) throws Exception {
         usersManager.handleLogin(username, password);
     }
@@ -222,6 +227,23 @@ public class Baloot {
 
     public Map<Integer, Commodity> getCommoditiesByPriceRange(int startPrice, int endPrice) {
         return commoditiesManager.getCommoditiesByPriceRange(startPrice, endPrice);
+    }
+
+
+    public Map<Integer, Commodity> getCommoditiesFilteredByName(String commodityName) {
+        commoditiesManager.filterCommoditiesByName(commodityName);
+        return commoditiesManager.getFilteredCommodities();
+    }
+
+
+    public Map<Integer, Commodity> getCommoditiesFilteredByCategory(String category) {
+        commoditiesManager.filterCommoditiesByCategory(category);
+        return commoditiesManager.getFilteredCommodities();
+    }
+
+
+    public void clearSearchFilters() {
+        commoditiesManager.clearFilters();
     }
 
 
