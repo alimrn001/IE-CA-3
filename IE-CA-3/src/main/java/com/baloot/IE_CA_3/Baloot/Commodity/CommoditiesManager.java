@@ -14,7 +14,7 @@ public class CommoditiesManager {
 
     private final Map<String, Category> balootCategorySections = new HashMap<>();
 
-    private final ArrayList<Integer> filteredCommoditiesID = new ArrayList<>(); // in case we want to apply multiple filters (for future use)
+    private final ArrayList<Integer> filteredCommoditiesID = new ArrayList<>();
 
     private boolean filterAlreadyApplied = false;
 
@@ -130,7 +130,6 @@ public class CommoditiesManager {
             filterAlreadyApplied = true;
         }
         sortIsApplied = false;
-        System.out.println("size here is : " + filteredCommoditiesID.size());
         for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
             if( (!(commodityEntry.getValue().getCategories().contains(category))) && (filteredCommoditiesID.contains(commodityEntry.getKey())) )
                 filteredCommoditiesID.remove(commodityEntry.getKey());
@@ -148,38 +147,19 @@ public class CommoditiesManager {
     public void sortCommoditiesByRating() {
         List<Commodity> commoditiesList = new ArrayList<>(balootCommodities.values());
         commoditiesList = commoditiesList.stream().sorted(Comparator.comparing(Commodity::getRating)).collect(Collectors.toList());
-        System.out.println(commoditiesList.size() + "is size");
         clearFilters();
         filteredCommoditiesID.clear();
         for(Commodity commodity : commoditiesList)
             filteredCommoditiesID.add(commodity.getId());
         sortIsApplied = true;
-//        Map<Integer, Commodity> commodities = this.balootCommodities;
-//        commodities.entrySet().stream()
-//                .sorted((k1, k2) -> -k1.getValue().getRating());
-//        commodities.values().stream().toList().sort(Comparator.comparingDouble(Commodity::getRating));
-//        clearFilters();
-//        filteredCommoditiesID.clear();
-//        filteredCommoditiesID.addAll(commodities.keySet());
-        //return commodities;
     }
 
 
     public List<Commodity> getFilteredCommodities() {
-        Map<Integer, Commodity> commodities = new HashMap<>();
         List<Commodity> commoditiesList = new ArrayList<>();
-
         for(int id : filteredCommoditiesID)
             commoditiesList.add(balootCommodities.get(id));
-            //commodities.put(balootCommodities.get(id).getId(), balootCommodities.get(id));
-        //System.out.println(commodities.size()  + " size");
         return commoditiesList;
-//        for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
-//            if(this.filteredCommoditiesID.contains(commodityEntry.getKey())) {
-//                commodities.put(commodityEntry.getKey(), commodityEntry.getValue());
-//            }
-//        }
-//        return commodities;
     }
 
 

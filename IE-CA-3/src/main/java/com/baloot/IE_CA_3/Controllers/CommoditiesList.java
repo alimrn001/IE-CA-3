@@ -1,4 +1,4 @@
-package com.baloot.IE_CA_3.controllers;
+package com.baloot.IE_CA_3.Controllers;
 
 import com.baloot.IE_CA_3.Baloot.Baloot;
 import javax.servlet.*;
@@ -48,6 +48,7 @@ public class CommoditiesList extends HttpServlet {
         }
     }
 
+
     private void executeSearchFilterTask(HttpServletRequest request, HttpServletResponse response, String searchString, int nameOrCategory) {
         Baloot baloot = Baloot.getInstance();
         try {
@@ -68,6 +69,7 @@ public class CommoditiesList extends HttpServlet {
         }
     }
 
+
     private void executeClearFilterTask(HttpServletRequest request, HttpServletResponse response) {
         Baloot baloot = Baloot.getInstance();
         try {
@@ -79,6 +81,7 @@ public class CommoditiesList extends HttpServlet {
             e.printStackTrace();
         }
     }
+
 
     private void executeSortCommoditiesByRate(HttpServletRequest request, HttpServletResponse response) {
         Baloot baloot = Baloot.getInstance();

@@ -1,6 +1,7 @@
 package com.baloot.IE_CA_3.Baloot.User;
 
 import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.LogoutFailedException;
 import com.baloot.IE_CA_3.Baloot.Exceptions.UserNotExistsException;
 import com.baloot.IE_CA_3.Baloot.Exceptions.UsernameWrongCharacterException;
 
@@ -63,6 +64,12 @@ public class UsersManager {
             }
         }
         throw new LoginFailedException();
+    }
+
+    public void handleLogout() throws Exception {
+        if(!loggedInUserExists())
+            throw new LogoutFailedException();
+        this.loggedInUserName = "";
     }
 
     public String getLoggedInUser() {

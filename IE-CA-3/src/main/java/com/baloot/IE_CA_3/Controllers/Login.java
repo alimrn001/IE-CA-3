@@ -1,4 +1,4 @@
-package com.baloot.IE_CA_3.controllers;
+package com.baloot.IE_CA_3.Controllers;
 
 import com.baloot.IE_CA_3.Baloot.Commodity.Commodity;
 import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;

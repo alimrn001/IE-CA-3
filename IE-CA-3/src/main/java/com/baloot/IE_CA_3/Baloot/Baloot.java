@@ -75,6 +75,12 @@ public class Baloot {
     }
 
 
+    public void handleLogout() throws Exception {
+        usersManager.handleLogout();
+        clearSearchFilters();
+    }
+
+
     public boolean commentExists(int commentId) {
         return balootComments.containsKey(commentId);
     }
@@ -85,6 +91,11 @@ public class Baloot {
     }
 
 
+    public void addProvider(Provider provider) throws Exception {
+        providersManager.addProvider(provider);
+    }
+
+
     public void addCommodity(Commodity commodity) throws Exception {
         if(!providersManager.providerExists(commodity.getProviderId()))
             throw new ProviderNotExistsException();
@@ -92,11 +103,6 @@ public class Baloot {
         commoditiesManager.addCommodity(commodity);
         providersManager.getBalootProviders().get(commodity.getProviderId()).addProvidedCommodity(commodity.getId());
         providersManager.getBalootProviders().get(commodity.getProviderId()).updateCommoditiesData(commodity.getRating());
-    }
-
-
-    public void addProvider(Provider provider) throws Exception {
-        providersManager.addProvider(provider);
     }
 
 
@@ -148,7 +154,6 @@ public class Baloot {
             if(isAdding)
                 throw new ItemAlreadyExistsInBuyListException();
             user.removeFromBuyList(commodityId);
-            return;
         }
         else {
             if(isAdding) {
@@ -243,13 +248,11 @@ public class Baloot {
 
     public void getCommoditiesFilteredByName(String commodityName) {
         commoditiesManager.filterCommoditiesByName(commodityName);
-        //return commoditiesManager.getFilteredCommodities();
     }
 
 
     public void getCommoditiesFilteredByCategory(String category) {
         commoditiesManager.filterCommoditiesByCategory(category);
-        //return commoditiesManager.getFilteredCommodities();//might remove and make it void !
     }
 
 
