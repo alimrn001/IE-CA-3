@@ -126,7 +126,7 @@ public class CommoditiesManager {
             clearFilters();
             filterAlreadyApplied = true;
         }
-
+        System.out.println("size here is : " + filteredCommoditiesID.size());
         for(Map.Entry<Integer, Commodity> commodityEntry : balootCommodities.entrySet()) {
             if( (!(commodityEntry.getValue().getCategories().contains(category))) && (filteredCommoditiesID.contains(commodityEntry.getKey())) )
                 filteredCommoditiesID.remove(commodityEntry.getKey());
@@ -178,6 +178,11 @@ public class CommoditiesManager {
             commoditiesSharingSameCategories.putAll(Maps.difference(highestRatedCommodities, commoditiesSharingSameCategories).entriesOnlyOnLeft()); // left or right
             return commoditiesSharingSameCategories;
         }
+    }
+
+
+    public boolean getFilteringStatus() {
+        return filterAlreadyApplied;
     }
 
 }

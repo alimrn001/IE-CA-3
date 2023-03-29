@@ -49,6 +49,11 @@ public class Baloot {
     }
 
 
+    public boolean searchFilterIsApplied() {
+        return commoditiesManager.getFilteringStatus();
+    }
+
+
     public String getLoggedInUsername() {
         return usersManager.getLoggedInUser();
     }
@@ -238,6 +243,11 @@ public class Baloot {
 
     public Map<Integer, Commodity> getCommoditiesFilteredByCategory(String category) {
         commoditiesManager.filterCommoditiesByCategory(category);
+        return commoditiesManager.getFilteredCommodities();//might remove and make it void !
+    }
+
+
+    public Map<Integer, Commodity> getFilteredCommodities() {
         return commoditiesManager.getFilteredCommodities();
     }
 

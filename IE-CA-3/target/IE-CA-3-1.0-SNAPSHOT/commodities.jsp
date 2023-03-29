@@ -10,11 +10,19 @@
 <%@ page import="com.baloot.IE_CA_3.Baloot.Commodity.Commodity" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     Baloot baloot = Baloot.getInstance();
-    List<Commodity> commoditiesList = new ArrayList<>(baloot.getBalootCommodities().values());
+    List<Commodity> commoditiesList;
+    if(baloot.searchFilterIsApplied())
+        commoditiesList = new ArrayList<>(baloot.getFilteredCommodities().values());
+    else {
+        commoditiesList = new ArrayList<>(baloot.getBalootCommodities().values());
+    }
+    //List<Commodity> commoditiesList = new ArrayList<>(baloot.getBalootCommodities().values());
 %>
 
 <html>
