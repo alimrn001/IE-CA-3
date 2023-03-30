@@ -1,10 +1,12 @@
 package com.baloot.IE_CA_3.Controllers;
 
+import com.baloot.IE_CA_3.Baloot.Comment.Comment;
 import com.baloot.IE_CA_3.Baloot.Commodity.Commodity;
 import com.baloot.IE_CA_3.Baloot.DiscountCoupon.DiscountCoupon;
 import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;
 import com.baloot.IE_CA_3.Baloot.Provider.Provider;
 import com.baloot.IE_CA_3.Baloot.User.User;
+import com.baloot.IE_CA_3.Baloot.Utilities.EmailParser;
 import com.baloot.IE_CA_3.Baloot.Utilities.LocalDateAdapter;
 import com.baloot.IE_CA_3.HTTPReqHandler.HTTPReqHandler;
 import com.google.gson.Gson;
@@ -35,6 +37,7 @@ public class Login extends HttpServlet {
             retrieveUsersDataFromAPI(UsersAPI);
             retrieveProvidersDataFromAPI(ProvidersAPI);
             retrieveCommoditiesDataFromAPI(CommoditiesAPI);
+            retrieveCommentsDataFromAPI(CommentsAPI);
             retrieveDiscountsDataFRomAPI(DiscountsAPI);
             Baloot baloot = Baloot.getInstance();
             baloot.addRemoveBuyList("amir", 4, true);
@@ -102,6 +105,18 @@ public class Login extends HttpServlet {
         for(Commodity commodity : commodityList) {
             commodity.initializeGsonNullValues();
             Baloot.getInstance().addCommodity(commodity);
+        }
+    }
+
+
+    private void retrieveCommentsDataFromAPI(String url) throws Exception {
+        String commentsDataJsonStr = new HTTPReqHandler().httpGetRequest(url);
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+        Type commentListType = new TypeToken<ArrayList<Comment>>(){}.getType();
+        List<Comment> commentList = gson.fromJson(commentsDataJsonStr, commentListType);
+        for(Comment comment : commentList) {
+            comment.setUsername(new EmailParser().getEmailUsername(comment.getUsername()));
+            Baloot.getInstance().addComment(comment);
         }
     }
 

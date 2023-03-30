@@ -1,11 +1,14 @@
 package com.baloot.IE_CA_3.Baloot.Comment;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 
 public class Comment {
 
     private int commentId;
 
+    @SerializedName(value = "userEmail")
     private String username;
 
     private int commodityId;
@@ -18,8 +21,6 @@ public class Comment {
 
     private int dislikesNo;
 
-    private int neutralVotesNo;
-
 
     public Comment(int commentId, String username, int commodityId, String text, String date) {
         this.commentId = commentId;
@@ -29,7 +30,6 @@ public class Comment {
         this.date = LocalDate.parse(date);
         this.likesNo = 0;
         this.dislikesNo = 0;
-        this.neutralVotesNo = 0;
     }
 
     public void setCommentId(int commentId) {
@@ -60,10 +60,6 @@ public class Comment {
         this.dislikesNo = dislikesNo;
     }
 
-    public void setNeutralVotesNo(int neutralVotesNo) {
-        this.neutralVotesNo = neutralVotesNo;
-    }
-
     public void addLike() {
         likesNo++;
     }
@@ -78,14 +74,6 @@ public class Comment {
 
     public void removeDislike() {
         dislikesNo--;
-    }
-
-    public void addNeutralVote() {
-        neutralVotesNo++;
-    }
-
-    public void removeNeutralVote() {
-        neutralVotesNo--;
     }
 
     public int getCommentId() {
@@ -114,10 +102,6 @@ public class Comment {
 
     public int getDislikesNo() {
         return dislikesNo;
-    }
-
-    public int getNeutralVotesNo() {
-        return neutralVotesNo;
     }
 
 }

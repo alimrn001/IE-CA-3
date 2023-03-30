@@ -126,16 +126,15 @@ public class Baloot {
 
 
     public void addComment(Comment comment) throws Exception { //fix this !!!1
-        if(!usersManager.userEmailExists(comment.getUsername())) {
+        if(!usersManager.userExists(comment.getUsername()))
             throw new UserNotExistsException();
-        }
-        if(!commoditiesManager.commodityExists(comment.getCommodityId())) {
+
+        if(!commoditiesManager.commodityExists(comment.getCommodityId()))
             throw new CommodityNotExistsException();
-        }
+
         comment.setCommentId(latestCommentID+1);
         comment.setLikesNo(0);
         comment.setDislikesNo(0);
-        comment.setNeutralVotesNo(0);
         balootComments.put(comment.getCommentId(), comment);
         latestCommentID++;
         commoditiesManager.getBalootCommodities().get(comment.getCommodityId()).addComment(comment.getCommentId());
@@ -227,11 +226,6 @@ public class Baloot {
             if(beenDislikedBefore)
                 balootComments.get(commentId).removeDislike();
         }
-
-        else if(vote==0) { // ????
-            balootComments.get(commentId).addNeutralVote();
-        }
-
         else if(vote==-1) {
             usersManager.getBalootUsers().get(username).addCommentToDislikedList(commentId);
             if(!beenDislikedBefore)
@@ -239,7 +233,7 @@ public class Baloot {
             if(beenLikedBefore)
                 balootComments.get(commentId).removeLike();
         }
-
+        else if(vote==0) {} // neutral vote ?!
         else
             throw new WrongVoteValueException();
     }
