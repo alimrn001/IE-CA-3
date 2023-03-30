@@ -79,6 +79,11 @@ public class Baloot {
     }
 
 
+    public int getDiscountCouponValueByCode(String discountCode) throws Exception {
+        return discountCouponsManager.getDiscountCouponValueByCode(discountCode);
+    }
+
+
     public void setCurrentSystemException(String currentSystemException) {
         this.currentSystemException = currentSystemException;
     }
@@ -188,18 +193,22 @@ public class Baloot {
     }
 
 
-    public void purchaseUserBuyList(String username) throws Exception {
+    public void purchaseUserBuyList(String username, int discountPercentage) throws Exception {
         if(!usersManager.userExists(username))
             throw new UserNotExistsException();
 
         ArrayList<Integer> userBuyList = usersManager.getBalootUsers().get(username).getBuyList();
         int totalPurchasePrice = 0;
-        for(Integer buyListItemId : userBuyList)
+        for(Integer buyListItemId : userBuyList) {
             totalPurchasePrice += commoditiesManager.getBalootCommodities().get(buyListItemId).getPrice();
-        if(usersManager.getBalootUsers().get(username).getCredit() < totalPurchasePrice)
+            if(commoditiesManager.getBalootCommodities().get(buyListItemId).getInStock()==0)
+                throw new ItemNotAvailableInStockException();
+        }
+        System.out.println("updated price is : " + (totalPurchasePrice*(1-((double)discountPercentage/100))));
+        if(usersManager.getBalootUsers().get(username).getCredit() < (totalPurchasePrice*(1-((double)discountPercentage/100))))
             throw new NotEnoughCreditException();
 
-        usersManager.getBalootUsers().get(username).purchaseBuyList(totalPurchasePrice);
+        usersManager.getBalootUsers().get(username).purchaseBuyList((int)(totalPurchasePrice*(1-((double)discountPercentage/100))));
         for(Integer buyListItemId : userBuyList)
             commoditiesManager.getBalootCommodities().get(buyListItemId).reduceInStock(1);
     }

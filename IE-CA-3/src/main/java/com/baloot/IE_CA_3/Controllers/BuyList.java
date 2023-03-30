@@ -1,9 +1,7 @@
 package com.baloot.IE_CA_3.Controllers;
 
 import com.baloot.IE_CA_3.Baloot.Baloot;
-import com.baloot.IE_CA_3.Baloot.Exceptions.ItemNotAvailableInStockException;
-import com.baloot.IE_CA_3.Baloot.Exceptions.ItemNotInBuyListForRemovingException;
-import com.baloot.IE_CA_3.Baloot.Exceptions.NotEnoughCreditException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -32,11 +30,31 @@ public class BuyList extends HttpServlet {
             String action = request.getParameter("action");
             if(action.equals("payment")) {
                 try {
-                    baloot.purchaseUserBuyList(baloot.getLoggedInUsername());
+                    String discountStr = request.getParameter("discount_code");
+                    int discount = 0;
+                    if(!discountStr.equals(""))
+                        discount = baloot.getDiscountCouponValueByCode(discountStr);
+                    System.out.println("here and discount is : " + discount);
+                    baloot.purchaseUserBuyList(baloot.getLoggedInUsername(), discount);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("successful.jsp");
                     requestDispatcher.forward(request, response);
                 }
                 catch(NotEnoughCreditException e) {
+                    baloot.setCurrentSystemException(e.getMessage());
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                catch(ItemNotAvailableInStockException e) {
+                    baloot.setCurrentSystemException(e.getMessage());
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                catch(DiscountCouponHasExpiredException e) {
+                    baloot.setCurrentSystemException(e.getMessage());
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
+                    requestDispatcher.forward(request, response);
+                }
+                catch (DiscountCouponNotExistsException e) {
                     baloot.setCurrentSystemException(e.getMessage());
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("error.jsp");
                     requestDispatcher.forward(request, response);

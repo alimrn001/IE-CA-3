@@ -54,6 +54,9 @@
         <form action="" method="POST">
             <label>Submit & Pay</label>
             <input id="form_payment" type="hidden" name="userId" value="Farhad">
+            <br>
+            <label>discount code</label>
+            <input id="coupon_code" type="text" name="discount_code" value="">
             <button type="submit" name="action" value="payment">Payment</button>
         </form>
     </li>

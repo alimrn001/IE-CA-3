@@ -28,6 +28,10 @@ public class DiscountCouponsManager {
         throw new DiscountCouponNotExistsException();
     }
 
+    public int getDiscountCouponValueByCode(String discountCode) throws Exception {
+        return getDiscountCouponByCode(discountCode).getDiscount();
+    }
+
     public Map<String, DiscountCoupon> getBalootDiscountCoupons() {
         return balootDiscountCoupons;
     }
