@@ -57,7 +57,8 @@ public class CommoditiesList extends HttpServlet {
                     baloot.getCommoditiesFilteredByName(searchString);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");
                 requestDispatcher.forward(request, response);
-            } else if (nameOrCategory == 1) {
+            }
+            else if (nameOrCategory == 1) {
                 if(!searchString.equals(""))
                     baloot.getCommoditiesFilteredByCategory(searchString);
                 RequestDispatcher requestDispatcher = request.getRequestDispatcher("commodities.jsp");

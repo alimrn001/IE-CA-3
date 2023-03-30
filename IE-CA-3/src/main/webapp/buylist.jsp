@@ -54,7 +54,7 @@
         <form action="" method="POST">
             <label>Submit & Pay</label>
             <input id="form_payment" type="hidden" name="userId" value="Farhad">
-            <button type="submit">Payment</button>
+            <button type="submit" name="action" value="payment">Payment</button>
         </form>
     </li>
 </ul>
@@ -86,8 +86,8 @@
             <td><a href="/commodities/<%=commodity.getId()%>">Link</a></td>
             <td>
                 <form action="" method="POST">
-                    <input id="form_commodity_id" type="hidden" name="commodityId" value="4231">
-                    <button type="submit">Remove</button>
+                    <input id="form_commodity_id" type="hidden" name="commodityId" value=<%=commodity.getId()%>>
+                    <button type="submit" name="action" value="remove">Remove</button>
                 </form>
             </td>
         </tr>
