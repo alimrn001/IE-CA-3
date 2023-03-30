@@ -1,9 +1,6 @@
 package com.baloot.IE_CA_3.Baloot.User;
 
-import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;
-import com.baloot.IE_CA_3.Baloot.Exceptions.LogoutFailedException;
-import com.baloot.IE_CA_3.Baloot.Exceptions.UserNotExistsException;
-import com.baloot.IE_CA_3.Baloot.Exceptions.UsernameWrongCharacterException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +40,16 @@ public class UsersManager {
                 balootUsers.put(user.getUsername(), user);
             }
         }
+    }
+
+    public void addCreditToUser(String username, int credit) throws Exception {
+        if(userExists(username)) {
+            if(credit <= 0)
+                throw new NegativeCreditAddingException();
+            balootUsers.get(username).addCredit(credit);
+            return;
+        }
+        throw new UserNotExistsException();
     }
 
     public User getBalootUser(String username) throws Exception {

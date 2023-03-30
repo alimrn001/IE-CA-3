@@ -15,7 +15,7 @@ public class User {
 
     private String address;
 
-    private double credit;
+    private int credit;
 
     private ArrayList<Integer> buyList;
 
@@ -28,7 +28,7 @@ public class User {
     private ArrayList<Integer> dislikedComments;
 
 
-    public User(String username, String password, String birthDate, String email, String address, double credit) {
+    public User(String username, String password, String birthDate, String email, String address, int credit) {
         this.username = username;
         this.password = password;
         this.birthDate = LocalDate.parse(birthDate);
@@ -70,7 +70,7 @@ public class User {
         this.address = address;
     }
 
-    public void setCredit(double credit) {
+    public void setCredit(int credit) {
         this.credit = credit;
     }
 
@@ -78,11 +78,11 @@ public class User {
         this.purchasedList = purchasedList;
     }
 
-    public void addCredit(double creditAmount) {
+    public void addCredit(int creditAmount) {
         this.credit += creditAmount;
     }
 
-    public void reduceCredit(double creditAmount) {
+    public void reduceCredit(int creditAmount) {
         this.credit -= creditAmount;
     }
 
@@ -110,7 +110,7 @@ public class User {
         return dislikedComments.contains(commentId);
     }
 
-    public void purchaseBuyList(double purchasePrice) {
+    public void purchaseBuyList(int purchasePrice) {
         for(Integer buyListItemId : this.buyList)
             purchasedList.add(buyListItemId);
         this.buyList.clear();
@@ -165,7 +165,7 @@ public class User {
         return birthDate;
     }
 
-    public double getCredit() {
+    public int getCredit() {
         return credit;
     }
 

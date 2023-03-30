@@ -37,6 +37,8 @@ public class Baloot {
 
     private Baloot() {}
 
+    private String currentSystemException = "";
+
 
     public static Baloot getInstance() {
         if(instance == null)
@@ -67,6 +69,21 @@ public class Baloot {
 
     public String getProviderNameById(int providerId) {
         return providersManager.getProviderNameById(providerId);
+    }
+
+
+    public String getCurrentSystemException() {
+        return currentSystemException;
+    }
+
+
+    public void setCurrentSystemException(String currentSystemException) {
+        this.currentSystemException = currentSystemException;
+    }
+
+
+    public void removeSystemException() {
+        this.currentSystemException = "";
     }
 
 
@@ -170,7 +187,7 @@ public class Baloot {
             throw new UserNotExistsException();
 
         ArrayList<Integer> userBuyList = usersManager.getBalootUsers().get(username).getBuyList();
-        double totalPurchasePrice = 0;
+        int totalPurchasePrice = 0;
         for(Integer buyListItemId : userBuyList)
             totalPurchasePrice += commoditiesManager.getBalootCommodities().get(buyListItemId).getPrice();
         if(usersManager.getBalootUsers().get(username).getCredit() < totalPurchasePrice)
@@ -182,11 +199,8 @@ public class Baloot {
     }
 
 
-    public void addCreditToUser(String username, double credit) throws Exception {
-        User user = usersManager.getBalootUser(username);
-        if(credit <= 0)
-            throw new NegativeCreditAddingException();
-        user.addCredit(credit);
+    public void addCreditToUser(String username, int credit) throws Exception {
+        usersManager.addCreditToUser(username, credit);
     }
 
 
