@@ -13,10 +13,14 @@ com/baloot/IE_CA_3/Baloot/Exceptions/CommentNotExistsException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/CommodityNotExistsException.class
 com/baloot/IE_CA_3/Controllers/Login$2.class
 com/baloot/IE_CA_3/Baloot/User/UsersManager.class
+com/baloot/IE_CA_3/Controllers/Login$4.class
 com/baloot/IE_CA_3/HTTPReqHandler/HTTPReqHandler.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotAvailableInStockException.class
+com/baloot/IE_CA_3/Baloot/DiscountCoupon/DiscountCoupon.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ProviderNotExistsException.class
+com/baloot/IE_CA_3/Baloot/Exceptions/WrongDiscountPercentageException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/UserNotExistsException.class
+com/baloot/IE_CA_3/Baloot/DiscountCoupon/DiscountCouponsManager.class
 com/baloot/IE_CA_3/Baloot/Commodity/Commodity.class
 com/baloot/IE_CA_3/Baloot/Exceptions/UsernameWrongCharacterException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/LogoutFailedException.class
@@ -25,6 +29,7 @@ com/baloot/IE_CA_3/Baloot/Exceptions/CommodityWithSameIDException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/LoginFailedException.class
 com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotInBuyListForRemovingException.class
 com/baloot/IE_CA_3/Controllers/Login.class
+com/baloot/IE_CA_3/Baloot/Exceptions/DiscountCouponNotExistsException.class
 com/baloot/IE_CA_3/Controllers/AddCredit.class
 com/baloot/IE_CA_3/Controllers/Logout.class
 com/baloot/IE_CA_3/Baloot/Provider/Provider.class

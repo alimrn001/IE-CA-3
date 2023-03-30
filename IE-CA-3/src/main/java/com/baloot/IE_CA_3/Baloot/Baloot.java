@@ -4,6 +4,8 @@ import com.baloot.IE_CA_3.Baloot.Commodity.Category;
 import com.baloot.IE_CA_3.Baloot.Commodity.CommoditiesManager;
 import com.baloot.IE_CA_3.Baloot.Commodity.Commodity;
 import com.baloot.IE_CA_3.Baloot.Comment.*;
+import com.baloot.IE_CA_3.Baloot.DiscountCoupon.DiscountCoupon;
+import com.baloot.IE_CA_3.Baloot.DiscountCoupon.DiscountCouponsManager;
 import com.baloot.IE_CA_3.Baloot.Rating.*;
 import com.baloot.IE_CA_3.Baloot.Exceptions.*;
 import com.baloot.IE_CA_3.Baloot.Provider.Provider;
@@ -24,6 +26,8 @@ public class Baloot {
     private final ProvidersManager providersManager = new ProvidersManager();
 
     private final CommoditiesManager commoditiesManager = new CommoditiesManager();
+
+    private final DiscountCouponsManager discountCouponsManager = new DiscountCouponsManager();
 
     private final Map<String, Rating> balootRatings = new HashMap<>();
 
@@ -159,6 +163,11 @@ public class Baloot {
         int previousRate = balootRatings.get(ratingPrimaryKey).getScore();
         commoditiesManager.getBalootCommodities().get(commodityId).updateUserRating(previousRate, rate);
         balootRatings.put(ratingPrimaryKey, rating);
+    }
+
+
+    public void addDiscountCoupon(DiscountCoupon discountCoupon) throws Exception {
+        discountCouponsManager.addDiscountCoupon(discountCoupon);
     }
 
 
@@ -312,13 +321,13 @@ public class Baloot {
     }
 
 
-    public Map<Integer, Commodity> getBalootCommodities() {
-        return commoditiesManager.getBalootCommodities();
+    public Map<Integer, Provider> getBalootProviders() {
+        return providersManager.getBalootProviders();
     }
 
 
-    public Map<Integer, Provider> getBalootProviders() {
-        return providersManager.getBalootProviders();
+    public Map<Integer, Commodity> getBalootCommodities() {
+        return commoditiesManager.getBalootCommodities();
     }
 
 
@@ -334,6 +343,11 @@ public class Baloot {
 
     public Map<String, Category> getBalootCategorySections() {
         return commoditiesManager.getBalootCategories();
+    }
+
+
+    public Map<String, DiscountCoupon> getBalootDiscountCoupons() {
+        return discountCouponsManager.getBalootDiscountCoupons();
     }
 
 }

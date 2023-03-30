@@ -1,6 +1,7 @@
 package com.baloot.IE_CA_3.Controllers;
 
 import com.baloot.IE_CA_3.Baloot.Commodity.Commodity;
+import com.baloot.IE_CA_3.Baloot.DiscountCoupon.DiscountCoupon;
 import com.baloot.IE_CA_3.Baloot.Exceptions.LoginFailedException;
 import com.baloot.IE_CA_3.Baloot.Provider.Provider;
 import com.baloot.IE_CA_3.Baloot.User.User;
@@ -26,12 +27,15 @@ public class Login extends HttpServlet {
     final static String UsersAPI = "http://5.253.25.110:5000/api/users";
     final static String ProvidersAPI = "http://5.253.25.110:5000/api/providers";
     final static String CommoditiesAPI = "http://5.253.25.110:5000/api/commodities";
+    final static String DiscountsAPI = "http://5.253.25.110:5000/api/discount";
+    final static String CommentsAPI = "http://5.253.25.110:5000/api/comments";
 
     public void init() throws ServletException {
         try {
             retrieveUsersDataFromAPI(UsersAPI);
             retrieveProvidersDataFromAPI(ProvidersAPI);
             retrieveCommoditiesDataFromAPI(CommoditiesAPI);
+            retrieveDiscountsDataFRomAPI(DiscountsAPI);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -94,6 +98,17 @@ public class Login extends HttpServlet {
         for(Commodity commodity : commodityList) {
             commodity.initializeGsonNullValues();
             Baloot.getInstance().addCommodity(commodity);
+        }
+    }
+
+
+    private void retrieveDiscountsDataFRomAPI(String url) throws Exception {
+        String discountsDataJsonStr = new HTTPReqHandler().httpGetRequest(url);
+        Gson gson = new GsonBuilder().create();
+        Type discountListType = new TypeToken<ArrayList<DiscountCoupon>>(){}.getType();
+        List<DiscountCoupon> discountList = gson.fromJson(discountsDataJsonStr, discountListType);
+        for(DiscountCoupon discountCoupont : discountList) {
+            Baloot.getInstance().addDiscountCoupon(discountCoupont);
         }
     }
 
