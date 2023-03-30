@@ -31,8 +31,6 @@ public class Baloot {
 
     private final Map<String, Rating> balootRatings = new HashMap<>();
 
-    private final Map<String, Category> balootCategorySections = new HashMap<>();
-
     private final Map<Integer, Comment> balootComments = new HashMap<>();
 
     private int latestCommentID = 0; //comments id start with 1
@@ -266,6 +264,16 @@ public class Baloot {
 
     public Map<Integer, Commodity> getCommoditiesByPriceRange(int startPrice, int endPrice) {
         return commoditiesManager.getCommoditiesByPriceRange(startPrice, endPrice);
+    }
+
+
+    public Map<Integer, Commodity> getUserBuyListCommodities(String username) throws Exception {
+        return commoditiesManager.getCommoditiesByIDList(usersManager.getUserBuyListItems(username));
+    }
+
+
+    public int getUserBuyListTotalPrice(String username) throws Exception {
+        return commoditiesManager.getCommoditiesListTotalPrice(usersManager.getUserBuyListItems(username));
     }
 
 

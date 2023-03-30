@@ -155,6 +155,25 @@ public class CommoditiesManager {
     }
 
 
+    public int getCommoditiesListTotalPrice(ArrayList<Integer> commoditiesID) throws Exception {
+        int totalPrice = 0;
+        for(int commodityId : commoditiesID) {
+            totalPrice += getBalootCommodity(commodityId).getPrice();
+        }
+        return totalPrice;
+    }
+
+
+    public Map<Integer, Commodity> getCommoditiesByIDList(ArrayList<Integer> commoditiesID) throws Exception {
+        Map<Integer, Commodity> commodities = new HashMap<>();
+        for(int id : commoditiesID) {
+            Commodity commodity = getBalootCommodity(id);
+            commodities.put(commodity.getId(), commodity);
+        }
+        return commodities;
+    }
+
+
     public List<Commodity> getFilteredCommodities() {
         List<Commodity> commoditiesList = new ArrayList<>();
         for(int id : filteredCommoditiesID)
