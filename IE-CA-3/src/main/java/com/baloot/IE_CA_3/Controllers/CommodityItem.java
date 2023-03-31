@@ -38,6 +38,44 @@ public class CommodityItem extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Baloot baloot = Baloot.getInstance();
+        if(baloot.userIsLoggedIn()) {
+            String action = request.getParameter("action");
+            if(action.equals("rate")) {
+                try {
+                    //String rateVal = request.getParameter()
+                }
+                catch(Exception e) {
 
+                }
+            }
+            else if(action.equals("buylist")) {
+
+            }
+            else if(action.equals("like")) {
+                handleVoteCommentRequest(request, response, 1);
+            }
+            else if(action.equals("dislike")) {
+                handleVoteCommentRequest(request, response, -1);
+            }
+        }
+        else {
+            response.sendRedirect("http://localhost:8181/IE_CA_3_war_exploded/login");
+        }
     }
+
+    private void handleVoteCommentRequest(HttpServletRequest request, HttpServletResponse response, int vote) {
+        Baloot baloot = Baloot.getInstance();
+        try {
+            String commentId = request.getParameter("comment_id");
+            baloot.voteComment(baloot.getLoggedInUsername(), Integer.parseInt(commentId), vote);
+            String commodityId = request.getRequestURI().split("/")[3];
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../commodity.jsp?id=" + commodityId);
+            requestDispatcher.forward(request, response);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

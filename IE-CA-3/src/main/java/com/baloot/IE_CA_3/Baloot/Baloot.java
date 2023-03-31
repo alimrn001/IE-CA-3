@@ -138,11 +138,6 @@ public class Baloot {
             throw new CommodityNotExistsException();
         commentsManager.addComment(comment);
         usersManager.getBalootUsers().get(comment.getUsername()).addCommentReference(comment.getCommentId());
-//        comment.setCommentId(latestCommentID+1);
-//        comment.setLikesNo(0);
-//        comment.setDislikesNo(0);
-//        balootComments.put(comment.getCommentId(), comment);
-//        latestCommentID++;
         commoditiesManager.getBalootCommodities().get(comment.getCommodityId()).addComment(comment.getCommentId());
     }
 
@@ -238,20 +233,11 @@ public class Baloot {
         boolean beenLikedBefore = usersManager.getBalootUsers().get(username).userHasLikedComment(commentId);
         boolean beenDislikedBefore = usersManager.getBalootUsers().get(username).userHasDislikedComment(commentId);
 
-        if(vote==1) {
+        if(vote==1)
             usersManager.getBalootUsers().get(username).addCommentToLikedList(commentId);
-//            if(!beenLikedBefore)
-//                balootComments.get(commentId).addLike();
-//            if(beenDislikedBefore)
-//                balootComments.get(commentId).removeDislike();
-        }
-        else if(vote==-1) {
+        else if(vote==-1)
             usersManager.getBalootUsers().get(username).addCommentToDislikedList(commentId);
-//            if(!beenDislikedBefore)
-//                balootComments.get(commentId).addDislike();
-//            if(beenLikedBefore)
-//                balootComments.get(commentId).removeLike();
-        }
+
         commentsManager.voteComment(commentId, vote, beenLikedBefore, beenDislikedBefore);
     }
 

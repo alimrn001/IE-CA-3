@@ -32,7 +32,7 @@
     </style>
 </head>
 <body>
-<span>username: </span>
+<span>username: <%=baloot.getLoggedInUsername()%></span>
 <br>
 <ul>
     <li id="id">Id: <%=commodity.getId()%></li>
@@ -52,12 +52,14 @@
 <br>
 <form action="" method="POST">
     <label>Rate(between 1 and 10):</label>
+    <input type="hidden" id="commodity_id" name="commodity_id" value=<%=commodity.getId()%> >
     <input type="number" id="quantity" name="quantity" min="1" max="10">
-    <button type="submit">Rate</button>
+    <button type="submit" name="action" value="rate">Rate</button>
 </form>
 <br>
 <form action="" method="POST">
-    <button type="submit">Add to BuyList</button>
+    <input type="hidden" id="commodity_id" name="commodity_id" value=<%=commodity.getId()%> >
+    <button type="submit" name="action" value="buylist">Add to BuyList</button>
 </form>
 <br />
 <table>
@@ -81,9 +83,9 @@
                         id="form_comment_id"
                         type="hidden"
                         name="comment_id"
-                        value="1"
+                        value="<%=comment.getCommentId()%>"
                 />
-                <button type="submit">like</button>
+                <button type="submit" name="action" value="like">like</button>
             </form>
         </td>
         <td>
@@ -93,9 +95,9 @@
                         id="form_comment_id"
                         type="hidden"
                         name="comment_id"
-                        value="-1"
+                        value=<%=comment.getCommentId()%>
                 />
-                <button type="submit">dislike</button>
+                <button type="submit" name="action" value="dislike">dislike</button>
             </form>
         </td>
     </tr>
