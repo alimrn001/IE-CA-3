@@ -88,6 +88,17 @@ public class UsersManager {
     }
 
 
+    public void addCouponForUser(String username, String couponCode) throws Exception {
+        if(userExists(username)) {
+            if(balootUsers.get(username).userHasUsedDiscountCoupon(couponCode))
+                throw new DiscountCouponHasExpiredException();
+            balootUsers.get(username).addDiscountCodeToUsedCoupons(couponCode);
+        }
+        else
+            throw new UserNotExistsException();
+    }
+
+
     public String getLoggedInUser() {
         return this.loggedInUserName;
     }

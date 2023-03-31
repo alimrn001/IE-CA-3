@@ -35,7 +35,7 @@ public class BuyList extends HttpServlet {
                     if(!discountStr.equals(""))
                         discount = baloot.getDiscountCouponValueByCode(discountStr);
                     System.out.println("here and discount is : " + discount);
-                    baloot.purchaseUserBuyList(baloot.getLoggedInUsername(), discount);
+                    baloot.purchaseUserBuyList(baloot.getLoggedInUsername(), discountStr);
                     RequestDispatcher requestDispatcher = request.getRequestDispatcher("successful.jsp");
                     requestDispatcher.forward(request, response);
                 }

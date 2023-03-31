@@ -198,24 +198,31 @@ public class Baloot {
     }
 
 
-    public void purchaseUserBuyList(String username, int discountPercentage) throws Exception {
+    public void purchaseUserBuyList(String username, String discountCode) throws Exception {
         if(!usersManager.userExists(username))
             throw new UserNotExistsException();
 
+        int discountAmount = 0;
+        if(!discountCode.equals("")) {
+            DiscountCoupon discountCoupon = discountCouponsManager.getDiscountCouponByCode(discountCode);
+            usersManager.addCouponForUser(username, discountCode);
+            discountAmount = discountCoupon.getDiscount();
+        }
         ArrayList<Integer> userBuyList = usersManager.getBalootUsers().get(username).getBuyList();
         int totalPurchasePrice = 0;
         for(Integer buyListItemId : userBuyList) {
             totalPurchasePrice += commoditiesManager.getBalootCommodities().get(buyListItemId).getPrice();
             if(commoditiesManager.getBalootCommodities().get(buyListItemId).getInStock()==0)
-                throw new ItemNotAvailableInStockException();
+                throw new ItemNotAvailableInStockException(); //not needed generally but might be good for simultaneous purchasing by diffrent users
         }
-        System.out.println("updated price is : " + (totalPurchasePrice*(1-((double)discountPercentage/100))));
-        if(usersManager.getBalootUsers().get(username).getCredit() < (totalPurchasePrice*(1-((double)discountPercentage/100))))
+        System.out.println("updated price is : " + (totalPurchasePrice*(1-((double)discountAmount/100))));
+        if(usersManager.getBalootUsers().get(username).getCredit() < (totalPurchasePrice*(1-((double)discountAmount/100))))
             throw new NotEnoughCreditException();
 
-        usersManager.getBalootUsers().get(username).purchaseBuyList((int)(totalPurchasePrice*(1-((double)discountPercentage/100))));
         for(Integer buyListItemId : userBuyList)
             commoditiesManager.getBalootCommodities().get(buyListItemId).reduceInStock(1);
+        usersManager.getBalootUsers().get(username).purchaseBuyList((int)(totalPurchasePrice*(1-((double)discountAmount/100))));
+
     }
 
 

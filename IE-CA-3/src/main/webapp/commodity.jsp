@@ -48,7 +48,7 @@
 <label>Add Your Comment:</label>
 <form action="" method="post">
     <input type="text" name="comment" value="" />
-    <button type="submit">submit</button>
+    <button type="submit" name="action" value="post_comment">submit</button>
 </form>
 <br>
 <form action="" method="POST">

@@ -212,8 +212,7 @@ public class User {
 
 
     public void addDiscountCodeToUsedCoupons(String discountCode) {
-        if(!userHasUsedDiscountCoupon(discountCode))
-            usedDiscountCoupons.add(discountCode);
+        usedDiscountCoupons.add(discountCode);
     }
 
 

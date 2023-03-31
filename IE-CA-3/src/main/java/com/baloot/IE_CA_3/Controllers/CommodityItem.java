@@ -1,6 +1,10 @@
 package com.baloot.IE_CA_3.Controllers;
 
 import com.baloot.IE_CA_3.Baloot.Baloot;
+import com.baloot.IE_CA_3.Baloot.Exceptions.ItemAlreadyExistsInBuyListException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.ItemNotAvailableInStockException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.RatingOutOfRangeException;
+import com.baloot.IE_CA_3.Baloot.Exceptions.WrongVoteValueException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -45,13 +49,16 @@ public class CommodityItem extends HttpServlet {
                 handleRateCommodityRequest(request, response);
             }
             else if(action.equals("buylist")) {
-
+                addToBuyListRequest(request, response);
             }
             else if(action.equals("like")) {
                 handleVoteCommentRequest(request, response, 1);
             }
             else if(action.equals("dislike")) {
                 handleVoteCommentRequest(request, response, -1);
+            }
+            else if(action.equals("post_comment")) {
+
             }
         }
         else {
@@ -73,7 +80,7 @@ public class CommodityItem extends HttpServlet {
         }
     }
 
-    private void handleRateCommodityRequest(HttpServletRequest request, HttpServletResponse response) {
+    private void handleRateCommodityRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Baloot baloot = Baloot.getInstance();
         try {
             String rateVal = request.getParameter("quantity");
@@ -82,13 +89,38 @@ public class CommodityItem extends HttpServlet {
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("../commodity.jsp?id=" + commodityId);
             requestDispatcher.forward(request, response);
         }
+        catch (RatingOutOfRangeException e) {
+            baloot.setCurrentSystemException(e.getMessage());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../error.jsp");
+            requestDispatcher.forward(request, response);
+        }
         catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void addToBuyListRequest(HttpServletRequest request, HttpServletResponse response) {
-
+    private void addToBuyListRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Baloot baloot = Baloot.getInstance();
+        try {
+            String commodityId = request.getParameter("commodity_id");
+            baloot.addRemoveBuyList(baloot.getLoggedInUsername(), Integer.parseInt(commodityId), true);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../successful.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        catch (ItemNotAvailableInStockException e) {
+            baloot.setCurrentSystemException(e.getMessage());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../error.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        catch (ItemAlreadyExistsInBuyListException e) {
+            // might be a good idea to pass exception message as parameter to error.jsp
+            baloot.setCurrentSystemException(e.getMessage());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../error.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

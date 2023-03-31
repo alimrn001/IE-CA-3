@@ -86,7 +86,7 @@
             <td><%=commodity.getCategoriesAsString()%></td>
             <td><%=new DecimalFormat("0.00").format(commodity.getRating())%></td>
             <td><%=commodity.getInStock()%></td>
-            <td><a href="/commodities/<%=commodity.getId()%>">Link</a></td>
+            <td><a href="commodities/<%=commodity.getId()%>">Link</a></td>
             <td>
                 <form action="" method="POST">
                     <input id="form_commodity_id" type="hidden" name="commodityId" value=<%=commodity.getId()%>>

@@ -40,10 +40,6 @@ public class Login extends HttpServlet {
             retrieveCommoditiesDataFromAPI(CommoditiesAPI);
             retrieveCommentsDataFromAPI(CommentsAPI);
             retrieveDiscountsDataFRomAPI(DiscountsAPI);
-            Baloot baloot = Baloot.getInstance();
-            baloot.addRemoveBuyList("amir", 4, true);
-            baloot.addRemoveBuyList("amir", 5, true);
-            baloot.addRemoveBuyList("amir", 6, true);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
