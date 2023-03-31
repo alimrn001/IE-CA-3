@@ -110,6 +110,11 @@ public class Baloot {
     }
 
 
+    public boolean commodityExists(int commodityId) {
+        return commoditiesManager.commodityExists(commodityId);
+    }
+
+
     public void addUser(User user) throws Exception {
         usersManager.addUser(user);
     }
@@ -292,6 +297,11 @@ public class Baloot {
 
     public List<Commodity> getFilteredCommodities() {
         return commoditiesManager.getFilteredCommodities();
+    }
+
+
+    public List<Commodity> getRecommendedCommodities(int commodityId) throws Exception {
+        return new ArrayList<>(commoditiesManager.getRecommendedCommodities(commodityId).values());
     }
 
 

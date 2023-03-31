@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 
 import java.io.IOException;
 
-@WebServlet(name = "AddCredit", value = "/credit")
+@WebServlet(name = "AddCredit", urlPatterns = "/credit")
 public class AddCredit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -185,21 +185,28 @@ public class CommoditiesManager {
     public Map<Integer, Commodity> getRecommendedCommodities(int commodityID) throws Exception {
         Commodity commodity = getBalootCommodity(commodityID);
         Map<Integer, Commodity> commoditiesSharingSameCategories = new HashMap<>();
+        Map<Integer, Commodity> commoditiesSharingSameCategoriesSorted = new LinkedHashMap<>();
         for(String category : commodity.getCategories()) {
             Map<Integer, Commodity> commoditiesInSameCategory = getCommoditiesByCategory(category);
             commoditiesSharingSameCategories.putAll(Maps.difference(commoditiesInSameCategory, commoditiesSharingSameCategories).entriesOnlyOnLeft()); //or entry on right ??
         }
+        if(commoditiesSharingSameCategories.containsKey(commodityID)) //  if can also be removed
+            commoditiesSharingSameCategories.remove(commodityID);
         int commoditiesSharingSameCategoriesNum = commoditiesSharingSameCategories.size();
 
-        if(commoditiesSharingSameCategoriesNum >= 5)
-            return commoditiesSharingSameCategories.entrySet().stream()
-                    .sorted((c1, c2) -> Double.compare(c2.getValue().getRating() , c1.getValue().getRating())) // check ascending or descending !
-                    .limit(5).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
+        if(commoditiesSharingSameCategoriesNum >= 5) {
+            commoditiesSharingSameCategories.entrySet().stream()
+                    .sorted((c1, c2) -> Double.compare(c2.getValue().getRating(), c1.getValue().getRating())).limit(5)
+                    .forEachOrdered(x -> commoditiesSharingSameCategoriesSorted.put(x.getKey(), x.getValue())); // check ascending or descending !
+            return commoditiesSharingSameCategoriesSorted;
+        }
         else {
             Map<Integer, Commodity> highestRatedCommodities = getNHighestRatedCommodities(5-commoditiesSharingSameCategoriesNum);
             commoditiesSharingSameCategories.putAll(Maps.difference(highestRatedCommodities, commoditiesSharingSameCategories).entriesOnlyOnLeft()); // left or right
-            return commoditiesSharingSameCategories;
+            commoditiesSharingSameCategories.entrySet().stream()
+                    .sorted((c1, c2) -> Double.compare(c2.getValue().getRating(), c1.getValue().getRating())).limit(5)
+                    .forEachOrdered(x -> commoditiesSharingSameCategoriesSorted.put(x.getKey(), x.getValue())); // check ascending or descending !
+            return commoditiesSharingSameCategoriesSorted;
         }
     }
 
