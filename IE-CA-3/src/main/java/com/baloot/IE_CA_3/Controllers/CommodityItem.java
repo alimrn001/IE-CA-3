@@ -42,12 +42,7 @@ public class CommodityItem extends HttpServlet {
         if(baloot.userIsLoggedIn()) {
             String action = request.getParameter("action");
             if(action.equals("rate")) {
-                try {
-                    //String rateVal = request.getParameter()
-                }
-                catch(Exception e) {
-
-                }
+                handleRateCommodityRequest(request, response);
             }
             else if(action.equals("buylist")) {
 
@@ -76,6 +71,24 @@ public class CommodityItem extends HttpServlet {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void handleRateCommodityRequest(HttpServletRequest request, HttpServletResponse response) {
+        Baloot baloot = Baloot.getInstance();
+        try {
+            String rateVal = request.getParameter("quantity");
+            String commodityId = request.getParameter("commodity_id");
+            baloot.addRating(baloot.getLoggedInUsername(), Integer.parseInt(commodityId), Integer.parseInt(rateVal));
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../commodity.jsp?id=" + commodityId);
+            requestDispatcher.forward(request, response);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addToBuyListRequest(HttpServletRequest request, HttpServletResponse response) {
+
     }
 
 }

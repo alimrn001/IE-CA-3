@@ -2,7 +2,8 @@
 <%@ page import="com.baloot.IE_CA_3.Baloot.Baloot" %>
 <%@ page import="com.baloot.IE_CA_3.Baloot.Comment.Comment" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.text.DecimalFormat" %><%--
   Created by IntelliJ IDEA.
   User: mehrani
   Date: ۲۰۲۳/۳/۳۰
@@ -40,7 +41,7 @@
     <li id="providerName">Provider Name: <%=baloot.getProviderNameById(commodity.getProviderId())%></li>
     <li id="price">Price: <%=commodity.getPrice()%></li>
     <li id="categories"><%=commodity.getCategoriesAsString()%></li>
-    <li id="rating">Rating: <%=commodity.getRating()%></li>
+    <li id="rating">Rating: <%=new DecimalFormat("0.00").format(commodity.getRating())%></li>
     <li id="inStock">In Stock: <%=commodity.getInStock()%></li>
 </ul>
 
@@ -123,7 +124,7 @@
         <td><%=baloot.getProviderNameById(recommended.getProviderId())%></td>
         <td><%=recommended.getPrice()%></td>
         <td><%=recommended.getCategoriesAsString()%></td>
-        <td><%=recommended.getRating()%></td>
+        <td><%=new DecimalFormat("0.00").format(recommended.getRating())%></td>
         <td><%=recommended.getInStock()%></td>
         <td><a href="<%=recommended.getId()%>">Link</a></td>
     </tr>
