@@ -12,6 +12,7 @@ import com.baloot.IE_CA_3.Baloot.Provider.Provider;
 import com.baloot.IE_CA_3.Baloot.Provider.ProvidersManager;
 import com.baloot.IE_CA_3.Baloot.User.User;
 import com.baloot.IE_CA_3.Baloot.User.UsersManager;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,13 +28,13 @@ public class Baloot {
 
     private final CommoditiesManager commoditiesManager = new CommoditiesManager();
 
+    private final CommentsManager commentsManager = new CommentsManager();
+
     private final DiscountCouponsManager discountCouponsManager = new DiscountCouponsManager();
 
     private final Map<String, Rating> balootRatings = new HashMap<>();
 
-    private final Map<Integer, Comment> balootComments = new HashMap<>();
-
-    private int latestCommentID = 0; //comments id start with 1
+    //private int latestCommentID = 0; //comments id start with 1
 
     private static Baloot instance;
 
@@ -105,11 +106,6 @@ public class Baloot {
     }
 
 
-    public boolean commentExists(int commentId) {
-        return balootComments.containsKey(commentId);
-    }
-
-
     public boolean commodityExists(int commodityId) {
         return commoditiesManager.commodityExists(commodityId);
     }
@@ -138,16 +134,25 @@ public class Baloot {
     public void addComment(Comment comment) throws Exception { //fix this !!!1
         if(!usersManager.userExists(comment.getUsername()))
             throw new UserNotExistsException();
-
         if(!commoditiesManager.commodityExists(comment.getCommodityId()))
             throw new CommodityNotExistsException();
-
-        comment.setCommentId(latestCommentID+1);
-        comment.setLikesNo(0);
-        comment.setDislikesNo(0);
-        balootComments.put(comment.getCommentId(), comment);
-        latestCommentID++;
+        commentsManager.addComment(comment);
+        usersManager.getBalootUsers().get(comment.getUsername()).addCommentReference(comment.getCommentId());
+//        comment.setCommentId(latestCommentID+1);
+//        comment.setLikesNo(0);
+//        comment.setDislikesNo(0);
+//        balootComments.put(comment.getCommentId(), comment);
+//        latestCommentID++;
         commoditiesManager.getBalootCommodities().get(comment.getCommodityId()).addComment(comment.getCommentId());
+    }
+
+
+    public void addCommentByUserInput(String username, int commodityId,  String text) throws Exception {
+        if(!usersManager.userExists(username))
+            throw new UserNotExistsException();
+        if(!commoditiesManager.commodityExists(commodityId))
+            throw new CommodityNotExistsException();
+        commentsManager.addCommentByUserInput(username, commodityId, text);
     }
 
 
@@ -227,7 +232,7 @@ public class Baloot {
     public void voteComment(String username, int commentId, int vote) throws Exception {
         if(!usersManager.userExists(username))
             throw new UserNotExistsException();
-        if(!commentExists(commentId))
+        if(!commentsManager.commentExists(commentId))
             throw new CommentNotExistsException();
 
         boolean beenLikedBefore = usersManager.getBalootUsers().get(username).userHasLikedComment(commentId);
@@ -235,33 +240,26 @@ public class Baloot {
 
         if(vote==1) {
             usersManager.getBalootUsers().get(username).addCommentToLikedList(commentId);
-            if(!beenLikedBefore)
-                balootComments.get(commentId).addLike();
-            if(beenDislikedBefore)
-                balootComments.get(commentId).removeDislike();
+//            if(!beenLikedBefore)
+//                balootComments.get(commentId).addLike();
+//            if(beenDislikedBefore)
+//                balootComments.get(commentId).removeDislike();
         }
         else if(vote==-1) {
             usersManager.getBalootUsers().get(username).addCommentToDislikedList(commentId);
-            if(!beenDislikedBefore)
-                balootComments.get(commentId).addDislike();
-            if(beenLikedBefore)
-                balootComments.get(commentId).removeLike();
+//            if(!beenDislikedBefore)
+//                balootComments.get(commentId).addDislike();
+//            if(beenLikedBefore)
+//                balootComments.get(commentId).removeLike();
         }
-        else if(vote==0) {} // neutral vote ?!
-        else
-            throw new WrongVoteValueException();
+        commentsManager.voteComment(commentId, vote, beenLikedBefore, beenDislikedBefore);
     }
 
 
     public Map<Integer, Comment> getCommodityComments(int commodityId) throws Exception {
         if(!commoditiesManager.commodityExists(commodityId))
             throw new CommodityNotExistsException();
-        Map<Integer, Comment> result = new HashMap<>();
-        for (Map.Entry<Integer, Comment> commentEntry : balootComments.entrySet()) {
-            if(commentEntry.getValue().getCommodityId()==commodityId)
-                result.put(commentEntry.getKey(), commentEntry.getValue());
-        }
-        return result;
+        return commentsManager.getCommodityComments(commodityId);
     }
 
 
@@ -331,9 +329,7 @@ public class Baloot {
 
 
     public Comment getBalootComment(int commentId) throws Exception {
-        if(!commentExists(commentId))
-            throw new CommentNotExistsException();
-        return balootComments.get(commentId);
+        return commentsManager.getBalootComment(commentId);
     }
 
 
@@ -353,7 +349,7 @@ public class Baloot {
 
 
     public Map<Integer, Comment> getBalootComments() {
-        return balootComments;
+        return commentsManager.getBalootComments();
     }
 
 

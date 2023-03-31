@@ -1,3 +1,4 @@
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Comment/CommentsManager.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotAvailableInStockException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/UsernameWrongCharacterException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Commodity/CommoditiesManager.java
@@ -12,6 +13,7 @@
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Controllers/CommoditiesList.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Commodity/Category.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Provider/Provider.java
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/DiscountCouponHasExpiredException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/NotEnoughCreditException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/WrongVoteValueException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/CommodityNotExistsException.java
@@ -21,7 +23,9 @@
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Provider/ProvidersManager.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/DiscountCouponNotExistsException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/User/UsersManager.java
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Controllers/BuyList.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Comment/Comment.java
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Utilities/EmailParser.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/DiscountCoupon/DiscountCoupon.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Controllers/Logout.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Rating/Rating.java
@@ -29,6 +33,7 @@
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/ItemNotInBuyListForRemovingException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Controllers/Home.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/LoginFailedException.java
+/home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Controllers/CommodityItem.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/DiscountCoupon/DiscountCouponsManager.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/ProviderNotExistsException.java
 /home/mehrani/Desktop/IE-Projects/IE-CA#3/IE-CA-3/IE-CA-3/src/main/java/com/baloot/IE_CA_3/Baloot/Exceptions/NegativeCreditAddingException.java
