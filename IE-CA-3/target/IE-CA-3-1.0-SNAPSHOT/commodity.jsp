@@ -53,13 +53,11 @@
 <br>
 <form action="" method="POST">
     <label>Rate(between 1 and 10):</label>
-    <input type="hidden" id="commodity_id" name="commodity_id" value=<%=commodity.getId()%> >
     <input type="number" id="quantity" name="quantity" min="1" max="10">
     <button type="submit" name="action" value="rate">Rate</button>
 </form>
 <br>
 <form action="" method="POST">
-    <input type="hidden" id="commodity_id" name="commodity_id" value=<%=commodity.getId()%> >
     <button type="submit" name="action" value="buylist">Add to BuyList</button>
 </form>
 <br />

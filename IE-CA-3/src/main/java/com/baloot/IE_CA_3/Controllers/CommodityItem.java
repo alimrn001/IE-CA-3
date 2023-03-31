@@ -49,7 +49,7 @@ public class CommodityItem extends HttpServlet {
                 handleRateCommodityRequest(request, response);
             }
             else if(action.equals("buylist")) {
-                addToBuyListRequest(request, response);
+                handleAddToBuyListRequest(request, response);
             }
             else if(action.equals("like")) {
                 handleVoteCommentRequest(request, response, 1);
@@ -58,7 +58,7 @@ public class CommodityItem extends HttpServlet {
                 handleVoteCommentRequest(request, response, -1);
             }
             else if(action.equals("post_comment")) {
-
+                handlePostCommentRequest(request, response);
             }
         }
         else {
@@ -84,7 +84,7 @@ public class CommodityItem extends HttpServlet {
         Baloot baloot = Baloot.getInstance();
         try {
             String rateVal = request.getParameter("quantity");
-            String commodityId = request.getParameter("commodity_id");
+            String commodityId = request.getRequestURI().split("/")[3];
             baloot.addRating(baloot.getLoggedInUsername(), Integer.parseInt(commodityId), Integer.parseInt(rateVal));
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("../commodity.jsp?id=" + commodityId);
             requestDispatcher.forward(request, response);
@@ -99,10 +99,10 @@ public class CommodityItem extends HttpServlet {
         }
     }
 
-    private void addToBuyListRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void handleAddToBuyListRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Baloot baloot = Baloot.getInstance();
         try {
-            String commodityId = request.getParameter("commodity_id");
+            String commodityId = request.getRequestURI().split("/")[3];
             baloot.addRemoveBuyList(baloot.getLoggedInUsername(), Integer.parseInt(commodityId), true);
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("../successful.jsp");
             requestDispatcher.forward(request, response);
@@ -116,6 +116,22 @@ public class CommodityItem extends HttpServlet {
             // might be a good idea to pass exception message as parameter to error.jsp
             baloot.setCurrentSystemException(e.getMessage());
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("../error.jsp");
+            requestDispatcher.forward(request, response);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handlePostCommentRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Baloot baloot = Baloot.getInstance();
+        try {
+            String commentText = request.getParameter("comment");
+            String commodityId = request.getRequestURI().split("/")[3];
+            if(!commentText.equals(""))
+                baloot.addCommentByUserInput(baloot.getLoggedInUsername(), Integer.parseInt(commodityId), commentText);
+
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("../commodity.jsp?id=" + commodityId);
             requestDispatcher.forward(request, response);
         }
         catch (Exception e) {
